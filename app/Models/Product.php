@@ -9,7 +9,7 @@ class Product extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['name','unit','unitPrice', 'category', 'image_url','description'];
+    protected $fillable = ['name','unit','unitPrice', 'category', 'image_url','description', 'user_id'];
 
     public function getCategory(){
         if($this->category == 'meat') return 'Fresh Meat';

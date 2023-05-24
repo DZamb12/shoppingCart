@@ -8,7 +8,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/water.css@2/out/water.css">
+    <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/water.css@2/out/water.css"> -->
 </head>
 
 <body>
@@ -42,12 +42,12 @@
                 <ul class="navbar-nav">
                     @auth
                         <li class="nav-item">
-                            <a class="nav-link disabled">Welcome {{ auth()->user()->name }}!</a>
+                            <a class="nav-link">Welcome {{ auth()->user()->name }}!</a>
                         </li>
                         <li class="nav-item">
                             <form action="/logout" method="POST">
                                 @csrf
-                                <button type="submit" class="btn btn-link">Logout</button>
+                                <button type="submit" class="btn btn-warning">Logout</button>
                             </form>
                         </li>
                     @else

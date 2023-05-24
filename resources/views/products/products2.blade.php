@@ -1,5 +1,5 @@
 <x-layout>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/water.css@2/out/water.css">
+    <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/water.css@2/out/water.css"> -->
     <main>
         <div class="container-fluid bg-trasparent my-4 p-3" style="position: relative;">
             <form class="mb-4">
@@ -10,16 +10,16 @@
                 </div>
             </form>
 
-            <div class="row"></div>
-            <div class="row row-cols-1 row-cols-xs-2 row-cols-sm-2 row-cols-lg-4 g-3">
+            <div class="row">
+            <div class="row row-cols-1 row-cols-xs-2 row-cols-sm-2 row-cols-lg-4 g-3"> 
 
                 @unless ($products->isEmpty())
 
                     @foreach ($products as $product)
                         <div class="col">
-                            <div class="card h-100 shadow-sm"> <img
-                                    src="{{ $product->image_url ? asset('storage/' . $product->image_url) : asset('/images/icon.png') }}"
-                                    class="card-img-top" alt="...">
+                            <div class="card h-100 shadow-sm"> 
+                            <img src="{{ $product->image_url ? asset('storage/' . $product->image_url) : asset('/images/icon.png') }}"
+                                    class="card-img-top" alt="..." style="max-height: 200px; width: auto;">
                                 <div class="card-body">
                                     <div class="clearfix mb-3"> <span
                                             class="float-start badge rounded-pill bg-primary">{{ $product->getCategory() }}</span>
@@ -38,11 +38,10 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
                     @endforeach
                 @else
-                    <div class="row">
-                        <span>No products found.</span>
+                    <div>
+                        <span>No products found. Please visit again later!</span>
                     </div>
                 @endunless
             </div>

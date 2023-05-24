@@ -34,9 +34,9 @@ class ProductController extends Controller
             'unit' => 'required',
             'unitPrice' => 'required|decimal:0,2',
             'category' => 'required',
-            'name' => 'required|unique:products'
+            'name' => 'required|unique:products',
         ]);
-
+        $formFields['user_id']= auth()->id();
         if ($request->hasFile('image_url')) {
             $formFields['image_url'] =  $request->file('image_url')->store('images', 'public');
         }
@@ -90,7 +90,7 @@ class ProductController extends Controller
     {
         return view('products.products', [
             'heading' => 'Manage Products',
-            'products' => Product::latest()->paginate(5)
+            'products' => auth()->user()->product2()->paginate(5)
         ]);
     }
 
