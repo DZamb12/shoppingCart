@@ -24,16 +24,16 @@
             <div class="collapse navbar-collapse" id="mainNavBar">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     @auth
+                    <li class="nav-item">
+                        <a class="nav-link {{ request()->is('products/create') ? 'active' : '' }}"
+                            aria-current="page" href="/products/create">New Product</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {{ request()->is('products/manage') ? 'active' : '' }}"
+                            aria-current="page" href="/products/manage">Manage Products</a>
+                    </li>
                         <li class="nav-item">
-                            <a class="nav-link {{ request()->route()->getName() == 'products.create'? 'active': '' }}"
-                                aria-current="page" href="/products/create">New Product</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link {{ request()->route()->getName() == 'products.manage'? 'active': '' }}"
-                                aria-current="page" href="/products/manage">Manage Products</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link {{ request()->route()->getName() == 'products.manage'? 'active': '' }}"
+                            <a class="nav-link {{ request()->is('cart') ? 'active' : '' }}"
                                 aria-current="page" href="/cart">Shopping Cart</a>
                         </li>
                     @endauth
@@ -68,6 +68,25 @@
                 {{ session('success') }}
             </div>
         @endif
+        
+        @if (session()->has('error'))
+        <div class="alert alert-danger mt-4" role="alert">
+            {{ session('error') }}
+        </div>
+    @endif
+
+        @if (session()->has('removed'))
+        <div class="alert alert-warning mt-4" role="alert">
+            {{ session('removed') }}
+        </div>
+    @endif
+
+    @if (session()->has('info'))
+    <div class="alert alert-info mt-4" role="alert">
+        {{ session('info') }}
+    </div>
+    @endif
+    
         {{ $slot }}
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"

@@ -3,6 +3,18 @@
     <form method="POST" action="/users/authenticate">
         @csrf
         <div class="row mb-3">
+            <label for="name" class="col-sm-2 col-form-label">Username</label>
+            <div class="col-sm-10">
+                <input type="text" name="name" value="{{ old('name') }}"
+                    class="form-control @error('name') is-invalid @enderror" />
+                <div class="text-danger">
+                    @error('name')
+                        {{ $message }}
+                    @enderror
+                </div>
+            </div>
+        </div>
+        <div class="row mb-3">
             <label for="email" class="col-sm-2 col-form-label">Email</label>
             <div class="col-sm-10">
                 <input type="text" name="email" value="{{ old('email') }}"

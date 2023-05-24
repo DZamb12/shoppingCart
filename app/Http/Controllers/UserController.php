@@ -39,7 +39,7 @@ class UserController extends Controller
         $request->session()->invalidate();
         $request->session()->regenerateToken();
 
-        return redirect('/')->with('success', 'Good bye user. Buy again!');
+        return redirect('/')->with('info', 'Goodbye! Please buy again!');
     }
 
     public function login()
@@ -50,16 +50,22 @@ class UserController extends Controller
     public function authenticate(Request $request)
     {
         $formFields = $request->validate([
+            'name' => 'required',
             'email' => 'required',
             'password' => 'required'
         ]);
 
+        
         //authenticate form
         if (auth()->attempt($formFields)) {
             $request->session()->regenerate();
-            return redirect('/')->with('success', 'Welcome back!');
+            $user = auth()->user();
+            return redirect('/')->with('success', "Welcome back, $user->name! Happy shopping!");
         }
 
-        return back()->withErrors(['email' => 'Invalid Credentials.'])->onlyInput('email');
+        return back()->withErrors([
+            'email' => 'Invalid Credentials.',
+            'username' => 'Invalid Credentials.'
+        ])->onlyInput('email', 'username');
     }
 }

@@ -51,7 +51,7 @@
             </div>
         </div>
         <div class="row mb-3">
-            <span> Already have an acount? <a href='/login'>Login here. </a></span>
+            <span> Already have an account? <a href='/login'>Login here. </a></span>
         </div>
         <button class="btn btn-primary">Register</button>
     </form>

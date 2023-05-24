@@ -1,5 +1,4 @@
 <x-layout>
-    <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/water.css@2/out/water.css"> -->
     <main>
         <div class="container-fluid bg-trasparent my-4 p-3" style="position: relative;">
             <form class="mb-4">
@@ -11,7 +10,7 @@
             </form>
 
             <div class="row">
-            <div class="row row-cols-1 row-cols-xs-2 row-cols-sm-2 row-cols-lg-4 g-3"> 
+            <div class="row row-cols-1 row-cols-xs-2 row-cols-sm-2 row-cols-lg-4 g-3">
 
                 @unless ($products->isEmpty())
 
@@ -35,6 +34,16 @@
                                         <input type="hidden" name="image_url" value="{{$product['image_url']}}">
                                         <button type="submit" class="btn btn-info">Add to Cart</button>
                                     </form>
+                                    {{-- <form action="{{ route('addToCart', ['id' => $product['id']]) }}" method="POST">
+                                        @csrf
+                                        <input type="hidden" name="name" value="{{ $product['name'] }}">
+                                        <input type="hidden" name="unit" value="{{ $product['unit'] }}">
+                                        <input type="hidden" name="unitPrice" value="{{ $product['unitPrice'] }}">
+                                        <input type="hidden" name="category" value="{{ $product['category'] }}">
+                                        <input type="hidden" name="image_url" value="{{ $product['image_url'] }}">
+                                        <button type="submit" class="btn btn-info">Add to Cart</button>
+                                    </form> --}}
+                                    
                                     </div>
                                 </div>
                             </div>

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Auth;
 
 class ProductController extends Controller
 {
@@ -34,56 +35,64 @@ class ProductController extends Controller
             'unit' => 'required',
             'unitPrice' => 'required|decimal:0,2',
             'category' => 'required',
-            'name' => 'required|unique:products',
+            'name' => 'required'
+
         ]);
-        $formFields['user_id']= auth()->id();
+        $formFields['user_id'] = auth()->id();
         if ($request->hasFile('image_url')) {
-            $formFields['image_url'] =  $request->file('image_url')->store('images', 'public');
+            $formFields['image_url'] = $request->file('image_url')->store('images', 'public');
         }
-
         Product::create($formFields);
-
         return redirect('/')->with('success', 'New product saved successfully!');
     }
 
     public function edit(Product $product)
     {
-        return view('products.edit', ['product' => $product]);
+
+        if (auth()->id() == $product->user_id) {
+            return view('products.edit', [
+                'product' => $product
+            ]);
+        } else {
+            abort(403, 'Invalid Action');
+        }
     }
 
     public function update(Product $product, Request $request)
     {
-        $formFields = $request->validate([
-            'unit' => 'required',
-            'unitPrice' => 'required|decimal:0,2',
-            'category' => 'required',
-            'name' => 'required'
-        ]);
 
-        if(File::exists('storage/' . $product ->image_url)){
-            File::delete('storage/'. $product->image_url);
+        if (auth()->id() == $product->user_id) {
+            $formFields = $request->validate([
+                'unit' => 'required',
+                'unitPrice' => 'required|decimal:0,2',
+                'category' => 'required',
+                'name' => 'required'
+            ]);
+
+            if ($request->hasFile('image_url')) {
+                File::delete('storage/' . $product->image_url);
+                $formFields['image_url'] = $request->file('image_url')->store('images', 'public');
+            } else {
+            }
+
+            $product->update($formFields);
+        } else {
+            abort(403, 'Invalid Action');
         }
-
-        if ($request->hasFile('image_url')) {
-            $formFields['image_url'] =  $request->file('image_url')->store('images', 'public');
-        }
-
-        $product->update($formFields);
-
-        return redirect('/')->with('success', 'Product updated successfully!');
+        return redirect('/')->with('success', 'New product updated');
     }
-
     public function destroy(Product $product)
-    { 
-        
-        if(File::exists('storage/' . $product ->image_url)){
-            File::delete('storage/'. $product->image_url);
+    {
+        if (auth()->id() === $product->user_id) {
+            if (File::exists('storage/' . $product->image_url)) {
+                File::delete('storage/' . $product->image_url);
+            }
+
+            $product->delete();
+            return redirect('/products/manage')->with('removed', 'Product deleted successfully!');
+        } else {
+            abort(403, 'Invalid Action');
         }
-
-        $product->delete();
-
-        return redirect('/')->with('success', 'Product deleted successfully!');
-
     }
 
     public function manage()
@@ -99,26 +108,49 @@ class ProductController extends Controller
     {
         $product = Product::findOrFail($id);
         $cart = session()->get('product.cart', []);
-        if(isset($cart[$id])) {
+        if (isset($cart[$id])) {
             $cart[$id]['quantity']++;
         } else {
             $cart[$id] = [
                 "name" => $product->name,
-                "unit"=>$product->unit,
+                "unit" => $product->unit,
                 "quantity" => 1,
                 "unitPrice" => $product->unitPrice,
                 "image" => $product->image_url
             ];
         }
         session()->put('product.cart', $cart);
-        return redirect()->back()->with('success', 'Book has been added to cart!');
+        return redirect()->back()->with('success', 'Product has been added to cart!');
     }
-     public function ProductCart()
+
+    // public function addProducttoCart($id)
+    // {
+    //     if (!Auth::check()) {
+    //         return redirect()->back()->with('error', 'You must be logged in to add the product to your cart.');
+    //     }
+    
+    //     $product = Product::findOrFail($id);
+    //     $cart = session()->get('product.cart', []);
+    
+    //     if (isset($cart[$id])) {
+    //         $cart[$id]['quantity']++;
+    //     } else {
+    //         $cart[$id] = [
+    //             "name" => $product->name,
+    //             "unit" => $product->unit,
+    //             "quantity" => 1,
+    //             "unitPrice" => $product->unitPrice,
+    //             "image" => $product->image_url
+    //         ];
+    //     }
+    
+    //     session()->put('product.cart', $cart);
+    //     return redirect()->back()->with('success', 'Product has been added to cart!');
+    // }
+
+
+    public function ProductCart()
     {
         return view('product.cart');
     }
-
-
-
-
 }

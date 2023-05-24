@@ -15,6 +15,10 @@ class CartController extends Controller
 
     public function ProductCart(Product $product,Request $request){
         
+        if (auth()->guest()) {
+            return redirect('/login')->with('error', 'You need to login to add the product to your cart.');
+        }
+
         $formFields = $request->validate([
           
             'name'=>'required',
@@ -22,10 +26,11 @@ class CartController extends Controller
             'category'=>'required',
             'unitPrice'=>'required',
             'image_url'=>'required'
-           
         ]);
+
         $formFields['user_id']=auth()->id();
        Cart::create($formFields);
+
        return redirect('/')->with('success','New product has been added to cart');
 }
 
@@ -38,7 +43,7 @@ public function shoppingCart(){
     
   $product->delete();
    
-  return redirect('/cart')->with('success','Product Has been Removed');
+  return redirect('/cart')->with('removed','Product Has been Removed');
   
 }
 public function destroyall()
