@@ -48,4 +48,13 @@ class User extends Authenticatable
     public function product2(){
         return $this->hasMany(Product::class,'user_id');
     }
+
+    public function products(){
+        return $this->hasMany(Product::class);
+    }
+
+    public function getRoleAttribute($value){
+        $roles = ['user','admin'];
+        return $roles[$value];
+    }
 }

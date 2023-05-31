@@ -32,4 +32,8 @@ class Product extends Model
         //select id, name, category ... from products where name like '%search%' or
         //category like '%search%' or description like '%search%'
     }
+
+    public function user(){
+        return $this->belongsTo(User::class, 'user_id');
+    }
 }

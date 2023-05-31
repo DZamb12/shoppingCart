@@ -68,4 +68,8 @@ class UserController extends Controller
             'username' => 'Invalid Credentials.'
         ])->onlyInput('email', 'username');
     }
+
+    public function index(){
+        return view ('user.home');
+    }
 }

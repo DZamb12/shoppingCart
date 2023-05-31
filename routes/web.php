@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\Product;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\UserController;
@@ -69,4 +70,29 @@ Route::get('/cart/{product}', [CartController::class, 'ProductCart']);
 Route::delete('/cart/{product}/destroyall', [CartController::class, 'destroyall'])->middleware('auth');
 
 //addtocart
-// Route::post('/cart/{id}', 'ProductController@addProducttoCart')->name('addToCart');
+// Route::post('/cart/{id}', 'ProductController@addProducttoCart')->name('addToCart');\
+
+
+Auth::routes();
+
+//route for user
+Route::get('/user', function(){
+   return response ("Welcome User!");
+})->middleware('user');
+
+//route for admin
+Route::get('/admin', function(){
+    return response ("Welcome Admin!");
+ })->middleware('admin');
+
+ //List of user routes
+
+ Route::middleware(['user'])->group(function(){
+    Route::get('/home', [UserController::class, 'index']);
+    //other routes for any user type
+ });
+
+ Route::middleware(['admin'])->group(function(){
+    Route::get('/dashboard', [AdminController::class, 'index']);
+    //other routes for admin only
+ });
