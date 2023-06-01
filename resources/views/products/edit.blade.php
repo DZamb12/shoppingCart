@@ -1,63 +1,56 @@
 <x-layout>
-    <h1 class="mt-5">Update Product | {{ $product->name }}</h1>
-    <form method="POST" action="/products/{{ $product->id }}" enctype="multipart/form-data">
-        @csrf
-        @method('PUT')
-        <div class="row mb-3">
-            <label for="name" class="col-sm-2 col-form-label">Product Name</label>
-            <div class="col-sm-10">
-                <input type="text" name="name" value="{{ $product->name }}"
-                    class="form-control @error('name') is-invalid @enderror" />
-                <div class="text-danger">
-                    @error('name')
-                        {{ $message }}
-                    @enderror
+    <div class="card mt-5">
+        <div class="card-header">
+            <h1 class="card-title">Update Product | {{ $product->name }}</h1>
+        </div>
+        <div class="card-body">
+            <form method="POST" action="/products/{{ $product->id }}" enctype="multipart/form-data">
+                @csrf
+                @method('PUT')
+                <div class="mb-3">
+                    <label for="name" class="form-label">Product Name</label>
+                    <input type="text" name="name" value="{{ $product->name }}"
+                        class="form-control @error('name') is-invalid @enderror" />
+                    <div class="invalid-feedback">
+                        @error('name')
+                            {{ $message }}
+                        @enderror
+                    </div>
                 </div>
-            </div>
-        </div>
-        <div class="row mb-3">
-            <label for="unit" class="col-sm-2 col-form-label">Unit</label>
-            <div class="col-sm-10">
-                <input type="text" name="unit" value="{{ $product->unit }}"
-                    class="form-control @error('unit') is-invalid @enderror">
-                <div class="text-danger">
-                    @error('unit')
-                        {{ $message }}
-                    @enderror
+                <div class="mb-3">
+                    <label for="unit" class="form-label">Unit</label>
+                    <input type="text" name="unit" value="{{ $product->unit }}"
+                        class="form-control @error('unit') is-invalid @enderror">
+                    <div class="invalid-feedback">
+                        @error('unit')
+                            {{ $message }}
+                        @enderror
+                    </div>
                 </div>
-            </div>
-        </div>
-        <div class="row mb-3">
-            <label for="unitPrice" class="col-sm-2 col-form-label">Unit Price</label>
-            <div class="col-sm-10">
-                <input type="text" name="unitPrice" value="{{ $product->unitPrice }}"
-                    class="form-control @error('unitPrice') is-invalid @enderror">
-                <div class="text-danger">
-                    @error('unitPrice')
-                        {{ $message }}
-                    @enderror
+                <div class="mb-3">
+                    <label for="unitPrice" class="form-label">Unit Price</label>
+                    <input type="text" name="unitPrice" value="{{ $product->unitPrice }}"
+                        class="form-control @error('unitPrice') is-invalid @enderror">
+                    <div class="invalid-feedback">
+                        @error('unitPrice')
+                            {{ $message }}
+                        @enderror
+                    </div>
                 </div>
-            </div>
-        </div>
-        <div class="row mb-3">
-            <label for="category" class="col-sm-2 col-form-label">Category</label>
-            <div class="col-sm-10">
-                <select name="category" class="form-control">
-                    <option {{ $product->category == 'vegetable' ? 'selected' : '' }} value="vegetable">Vegetable</option>
-                    <option {{ $product->category == 'meat' ? 'selected' : '' }} value="meat">Meat</option>
-                    <option {{ $product->category == 'fish' ? 'selected' : '' }} value="fish">Fish</option>
-                </select>
-            </div>
-        </div>
-        <div class="row mb-3">
-            <label for="image_url" class="col-sm-2 col-form-label">Image</label>
-            <div class="col-sm-10">
-                <input type="file" name="image_url" class="form-control">
-                <div class="text-danger">
+                <div class="mb-3">
+                    <label for="category" class="form-label">Category</label>
+                    <select name="category" class="form-control">
+                        <option {{ $product->category == 'vegetable' ? 'selected' : '' }} value="vegetable">Vegetable</option>
+                        <option {{ $product->category == 'meat' ? 'selected' : '' }} value="meat">Meat</option>
+                        <option {{ $product->category == 'fish' ? 'selected' : '' }} value="fish">Fish</option>
+                    </select>
                 </div>
-            </div>
+                <div class="mb-3">
+                    <label for="image_url" class="form-label">Image</label>
+                    <input type="file" name="image_url" class="form-control">
+                </div>
+                <button class="btn btn-primary float-end">Update</button>
+            </form>
         </div>
-        <button class="btn btn-primary">Update</button>
-    </form>
-
+    </div>
 </x-layout>

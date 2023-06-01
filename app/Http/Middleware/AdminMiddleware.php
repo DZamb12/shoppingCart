@@ -16,12 +16,20 @@ class AdminMiddleware
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if(!Auth::check()){
+        if (!Auth::check()) {
             return redirect()->route('login');
         } else if (Auth::user()->role == 'admin') {
             return $next($request);
         }
-      
-        abort (403, "Unauthorized action.");
+        
+        // Redirect to home page after 3 seconds
+        echo 
+        '<script>
+            setTimeout(function() {
+                window.location.href = "/";
+            }, 3000);
+        </script>';
+        
+        abort(403, "Unauthorized action.");
     }
 }

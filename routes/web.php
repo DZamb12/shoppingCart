@@ -73,7 +73,7 @@ Route::delete('/cart/{product}/destroyall', [CartController::class, 'destroyall'
 // Route::post('/cart/{id}', 'ProductController@addProducttoCart')->name('addToCart');\
 
 
-Auth::routes();
+// Auth::routes();
 
 //route for user
 Route::get('/user', function(){
