@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Symfony\Component\HttpFoundation\Response;
 
-class UserMiddleware
+class DeactivateMiddleware
 {
     /**
      * Handle an incoming request.
@@ -18,10 +18,11 @@ class UserMiddleware
     {
         if(!Auth::check()){
             return redirect()->route('login');
-        }else if(Auth::user()->role == 'user' || Auth::user()->role == 'admin' ){
+        }else if(Auth::user()->role == 'user' || Auth::user()->role == 'admin' || Auth::user()->role == 'deactivated' ){
             return $next($request);
         }
 
         abort(403,'Unauthorized Action');
     }
-}
+    }
+

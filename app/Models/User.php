@@ -21,6 +21,9 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'role',
+        'created_at',
+        'status'
     ];
 
     /**
@@ -41,20 +44,23 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
-
-    public function product(){
+      public function products(){
         return $this->hasMany(Cart::class,'user_id');
     }
-    public function product2(){
+    public function products2(){
         return $this->hasMany(Product::class,'user_id');
     }
+    protected function getRoleAttribute($value){
+        $roles=['user','admin','deactivated'];
 
-    public function products(){
-        return $this->hasMany(Product::class);
-    }
-
-    public function getRoleAttribute($value){
-        $roles = ['user','admin'];
         return $roles[$value];
     }
+    public function scopeFilter($query){
+      
+       $query->whereIn('role',[0,2]);
+       
+            
+       
+
+}
 }
