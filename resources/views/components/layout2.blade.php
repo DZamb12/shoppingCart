@@ -41,7 +41,7 @@
             @auth
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                    {{-- <li class="nav-item">
+                    <!-- {{-- <li class="nav-item">
                         <a class="nav-link" href="/create">Create New Product</a>
                     </li>
                     <li class="nav-item">
@@ -49,7 +49,7 @@
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="/usertable">Manage Users</a>
-                    </li> --}}
+                    </li> --}} -->
                 </ul>
                 <ul class="navbar-nav">
                   <li class="nav-item">

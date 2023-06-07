@@ -53,7 +53,7 @@
                 </ul>
                 <ul class="navbar-nav">
                   <li class="nav-item">
-                    <a class="nav-link" href="/cart">
+                    <a class="nav-link" href="/cartadmin">
                       Cart |  <i class="bi bi-basket-fill"></i>
                     </a>
                 </li>                

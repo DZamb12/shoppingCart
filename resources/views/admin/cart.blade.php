@@ -1,4 +1,4 @@
-<x-layout2>
+<x-layout>
 	<h1>Product Catalogue</h1>
 	@php
   $total=0
@@ -114,21 +114,9 @@
 		  </div>
 		</div>
 	  </div>
- </div>
-
-                
+ </div>        
 	@endunless
-
-	
-
-
-
  </div>
- 
 </div>
 </div>
-
-
-	 
-
-</x-layout2>
+</x-layout>

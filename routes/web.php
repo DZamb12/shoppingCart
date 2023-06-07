@@ -6,23 +6,17 @@ use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider and all of them will
-| be assigned to the "web" middleware group. Make something great!
-|
-*/
-
 //index
 Route::middleware(['user'])->group(function(){
+    
 Route::get('/userproducts', [ProductController::class, 'indexusers'])->name('user.user'); 
+
 Route::get('/cart', [CartController::class, 'shoppingCart'])->middleware('auth');
+
 Route::delete('/cart/{product}/remove',[CartController::class, 'remove'])->middleware('auth');
+
 Route::get('/cart/{product}', [CartController::class, 'ProductCart']);
+
 Route::delete('/cart/{product}/destroyall', [CartController::class, 'destroyall']);
 });
 
@@ -52,6 +46,9 @@ Route::put('/products/{product}', [ProductController::class,'update']);
 
 //manage users
 Route::get('/usertable', [UserController::class, 'manageusers'])->middleware('auth');   
+
+    
+Route::get('/cartadmin', [CartController::class, 'shoppingCartad'])->middleware('auth');
 
 //deactivate users
 Route::put('/user/{user}/edit',[UserController::class,'deactivateUser'])->middleware('auth');

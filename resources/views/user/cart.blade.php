@@ -1,4 +1,4 @@
-<x-layout>
+<x-layout2>
     <h1>Product Catalogue</h1>
     @php
         $total = 0;
@@ -119,4 +119,4 @@
         </div>
     </div>
     </div>
-</x-layout>
+</x-layout2>

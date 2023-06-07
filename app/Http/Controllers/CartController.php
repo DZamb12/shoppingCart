@@ -32,8 +32,12 @@ class CartController extends Controller
 public function shoppingCart(){
     return view('user.cart',[
         'products'=> auth()->user()->products()->paginate(5)
-			
-       
+    ]);
+   }
+
+   public function shoppingCartad(){
+    return view('admin.cart',[
+        'products'=> auth()->user()->products()->paginate(5)
     ]);
    }
    public function remove(Cart $product){
@@ -43,6 +47,7 @@ public function shoppingCart(){
   return redirect('/cart')->with('success','Product Has been Removed');
   
 }
+
 public function destroyall()
 {
     Cart::whereNotNull('id')->delete();

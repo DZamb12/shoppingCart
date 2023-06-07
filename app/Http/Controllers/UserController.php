@@ -57,8 +57,8 @@ public function create(){
         }
         return back()->with('error','Incorrect Email or Password');       
      }
-   
 }
+
 public function manageusers(){
     return view('admin.manageusers',[
         'users'=> User::latest()->filter()->simplePaginate(3)
